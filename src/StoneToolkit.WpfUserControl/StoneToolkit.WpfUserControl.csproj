@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows;net472</TargetFrameworks>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoneToolkit.Common\StoneToolkit.Common.csproj" />
+    <ProjectReference Include="..\StoneToolkit.WpfCommon\StoneToolkit.WpfCommon.csproj" />
+    <ProjectReference Include="..\StoneToolkit.WpfControl\StoneToolkit.WpfControl.csproj" />
+  </ItemGroup>
+
+</Project>

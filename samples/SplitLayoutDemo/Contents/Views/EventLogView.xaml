@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="SplitLayoutDemo.Contents.Views.EventLogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ListView x:Name="LogList" FontSize="12">
+        <ListView.View>
+            <GridView>
+                <GridViewColumn Header="时间" Width="64" DisplayMemberBinding="{Binding Time}" />
+                <GridViewColumn Header="事件" Width="420" DisplayMemberBinding="{Binding Message}" />
+            </GridView>
+        </ListView.View>
+    </ListView>
+</UserControl>

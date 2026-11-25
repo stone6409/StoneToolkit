@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <!--<Nullable>disable</Nullable>-->
+    <!--<ImplicitUsings>enable</ImplicitUsings>-->
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\StoneToolkit.Extension\StoneToolkit.Extension.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icons.drawio.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

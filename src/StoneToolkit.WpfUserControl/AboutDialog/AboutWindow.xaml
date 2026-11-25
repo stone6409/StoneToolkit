@@ -1,0 +1,111 @@
+﻿<Window x:Class="StoneToolkit.WpfUserControl.AboutDialog.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:CommonConverter="clr-namespace:StoneToolkit.WpfCommon.Converters;assembly=StoneToolkit.WpfCommon"
+        xmlns:local="clr-namespace:StoneToolkit.WpfUserControl.AboutDialog"
+        mc:Ignorable="d"
+        Title="关于" Width="540" Height="420" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <CommonConverter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid Margin="10,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 内容区域 -->
+        <StackPanel Grid.Row="0" Margin="20" VerticalAlignment="Center">
+            <TextBlock Text="{Binding AppName}" 
+                      FontSize="16" 
+                      FontWeight="SemiBold"
+                      Foreground="#2C3E50"/>
+
+            <TextBlock Text="{Binding Version}" 
+                      Margin="0,15,0,0"
+                      FontSize="14"/>
+
+            <TextBlock Text="{Binding Copyright}" 
+                      Margin="0,10,0,0"
+                      FontSize="12"
+                      Foreground="Gray"/>
+
+            <TextBlock Text="{Binding Description}" 
+                      Margin="0,20,0,0"
+                      FontSize="11"
+                      Foreground="DarkGray"
+                      TextWrapping="Wrap"
+                      MaxWidth="300"/>
+
+            <!-- 额外信息 -->
+            <StackPanel Margin="0,15,0,0">
+                <TextBlock Text="{Binding Company}" 
+                          FontSize="11"
+                          Foreground="#3498DB"/>
+
+                <TextBlock Text="{Binding BuildTime}" 
+                          Margin="0,5,0,0"
+                          FontSize="10"
+                          Foreground="LightGray"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- 日志文件夹信息 -->
+        <Grid Grid.Row="1" Margin="0,15,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="日志文件夹:"
+                       FontWeight="SemiBold"
+                       Foreground="#495057"
+                       HorizontalAlignment="Left"/>
+
+            <TextBox Grid.Column="1" Text="{Binding LogsFolderPath, Mode=OneWay}" IsReadOnly="True"
+                       Margin="5,0,0,0"
+                       Foreground="#6C757D"
+                       HorizontalAlignment="Stretch" 
+                     VerticalContentAlignment="Center" />
+
+            <Button Grid.Column="2" Content="打开日志文件夹"
+                    Click="OpenLogsFolderButton_Click"
+                    Background="#6C757D"
+                    Foreground="White"
+                    Width="100"
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left" />
+        </Grid>
+
+        <!-- 按钮区域 -->
+        <Border Grid.Row="2" Padding="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="关闭" 
+                        Click="OkButton_Click"
+                        Background="#3498DB"
+                        Foreground="White"/>
+
+                <Button Content="检查更新" 
+                        Click="CheckUpdateButton_Click"
+                        Background="#27AE60"
+                        Foreground="White"
+                        Visibility="{Binding ShowUpdateButton, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

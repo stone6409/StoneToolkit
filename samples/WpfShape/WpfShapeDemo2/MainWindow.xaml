@@ -1,0 +1,39 @@
+﻿<Window x:Class="WpfShapeDemo2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:types="clr-namespace:StoneToolkit.WpfShape.Types;assembly=StoneToolkit.WpfShape"
+        xmlns:shapes="clr-namespace:StoneToolkit.WpfShape.Shapes;assembly=StoneToolkit.WpfShape"
+        xmlns:local="clr-namespace:WpfShapeDemo2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <shapes:WpfRuler Width="100" Height="200" DecimalDigits="2" />
+        <shapes:WpfRuler Grid.Column="1" Width="100" Height="200" MajorTickMarkColor="Blue" ShowScaleLabel="False" />
+        <shapes:WpfRuler Grid.Column="2" Width="240" Height="100" MinValue="50" Orientation="Horizontal">
+            <shapes:WpfRuler.Font>
+                <types:Font FontFamily="微软雅黑" FontSize="16">
+                </types:Font>
+            </shapes:WpfRuler.Font>
+        </shapes:WpfRuler>
+        <shapes:WpfRoundRuler Grid.Row="1" Width="200" Height="100" DecimalDigits="1" />
+        <shapes:WpfRoundRuler Grid.Row="1" Width="200" Height="100" MajorTickCount="21" MajorTickMarkHeight="5" ShowScaleLabel="False" />
+        <shapes:WpfRoundRuler Grid.Row="1" Grid.Column="1" Width="200" Height="100" LabelPlacement="Outside" />
+        <shapes:WpfRoundRuler Grid.Row="1" Grid.Column="2" Width="200" Height="100" MinValue="50" LabelPlacement="Outside" TickPlacement="Outside" ArcColor="Blue">
+            <shapes:WpfRoundRuler.Font>
+                <types:Font FontFamily="微软雅黑" FontSize="20">
+                </types:Font>
+            </shapes:WpfRoundRuler.Font>
+        </shapes:WpfRoundRuler>
+    </Grid>
+</Window>

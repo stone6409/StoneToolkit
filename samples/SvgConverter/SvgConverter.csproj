@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SvgConverter</RootNamespace>
+    <AssemblyName>SvgConverter</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- 保留手写的 Properties\AssemblyInfo.cs，避免与 SDK 自动生成的特性重复 -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpVectors.Reloaded" Version="1.2.0" />
+  </ItemGroup>
+
+</Project>

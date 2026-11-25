@@ -1,0 +1,163 @@
+﻿using Newtonsoft.Json;
+
+using NexusLabs.Contracts;
+using StoneToolkit.OpenAI.Http;
+using StoneToolkit.OpenAI.OpenAiDtos;
+
+namespace StoneToolkit.OpenAI.Files
+{
+    internal sealed class FilesApiClient : IFilesApiClient
+    {
+        private readonly IHttpClient _httpClient;
+        private readonly IFileInfoWebResultConverter _fileInfoWebResultConverter;
+
+        private readonly string _apiUrl = "https://api.openai.com/v1/files";
+
+        public FilesApiClient(
+            OpenAiApiConfiguration config,
+            IHttpClient httpClient,
+            IFileInfoWebResultConverter fileInfoWebResultConverter)
+        {
+            ArgumentContract.RequiresNotNull(httpClient, nameof(httpClient));
+            ArgumentContract.RequiresNotNull(fileInfoWebResultConverter, nameof(fileInfoWebResultConverter));
+
+            _httpClient = httpClient;
+            _fileInfoWebResultConverter = fileInfoWebResultConverter;
+
+            if (config != null)
+            {
+                _apiUrl = new Uri(new Uri(config.ApiEndpoint), config.ApiRouteFiles).ToString();
+            }
+        }
+
+        public async Task<FileInfo> UploadAsync(
+            string filePath,
+            string purpose,
+            string? fileName = null, 
+            CancellationToken cancellationToken = default)
+        {
+            ArgumentContract.RequiresNotNullOrWhiteSpace(filePath, nameof(filePath));
+            ArgumentContract.RequiresNotNullOrWhiteSpace(purpose, nameof(purpose));
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                fileName = Path.GetFileName(filePath);
+            }
+
+            var form = new MultipartFormDataContent
+            {
+                { new StringContent(purpose), "purpose" },
+                { new StreamContent(File.OpenRead(filePath)), "file", fileName }
+            };
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(_apiUrl),
+                Content = form,
+            };
+            var responseString = await _httpClient
+                .SendRequestAndReceiveStringAsync(
+                    request,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            var webResult = DeserializeResponse<FileInfoWebResult>(responseString);
+            var result = _fileInfoWebResultConverter.ConvertFromFileInfoWebResult(webResult);
+            return result;
+        }
+
+        public async Task<IReadOnlyCollection<FileInfo>> ListAllAsync(
+            CancellationToken cancellationToken = default)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(_apiUrl)
+            };
+            var responseString = await _httpClient
+                .SendRequestAndReceiveStringAsync(
+                    request,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            var webResult = DeserializeResponse<ListFilesWebResult>(responseString);
+            var result = webResult.data.Select(_fileInfoWebResultConverter.ConvertFromFileInfoWebResult).ToArray();
+            return result;
+        }
+
+        public async Task DeleteAsync(
+            string fileId,
+            CancellationToken cancellationToken = default)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new Uri($"{_apiUrl}/{fileId}")
+            };
+            var response = await _httpClient
+                .SendAsync(
+                    request,
+                    HttpCompletionOption.ResponseContentRead,
+                    cancellationToken)
+                .ConfigureAwait(false);
+            await response
+                .Content
+                .ReadAsStringAsync()
+                .ConfigureAwait(false);
+        }
+
+        public async Task<Stream> RetrieveContentAsync(
+            string fileId, 
+            CancellationToken cancellationToken = default)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{_apiUrl}/{fileId}/content")
+            };
+            var response = await _httpClient
+                .SendAsync(
+                    request,
+                    HttpCompletionOption.ResponseContentRead,
+                    cancellationToken)
+                .ConfigureAwait(false);
+            var stream = await response
+                .Content
+                .ReadAsStreamAsync()
+                .ConfigureAwait(false);
+            return stream;
+        }
+
+        public async Task<FileInfo> RetrieveAsync(
+            string fileId, 
+            CancellationToken cancellationToken = default)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"{_apiUrl}/{fileId}")
+            };
+            var responseString = await _httpClient
+                .SendRequestAndReceiveStringAsync(
+                    request,
+                    cancellationToken)
+                .ConfigureAwait(false);
+
+            var webResult = DeserializeResponse<FileInfoWebResult>(responseString);
+            var result = _fileInfoWebResultConverter.ConvertFromFileInfoWebResult(webResult);
+            return result;
+        }
+
+        private static T DeserializeResponse<T>(string responseString)
+        {
+            var webResult = JsonConvert.DeserializeObject<T>(responseString);
+            Contract.RequiresNotNull(
+                webResult,
+                () => $"JSON serializer returned null value for type {typeof(T)}.");
+#pragma warning disable CS8603 // Possible null reference return.
+            return webResult;
+#pragma warning restore CS8603 // Possible null reference return.
+        }
+    }
+}

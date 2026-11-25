@@ -1,0 +1,15 @@
+﻿<Window x:Class="SvgToXamlDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SvgToXamlDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="240">
+    <Grid>
+        <StackPanel>
+            <Button x:Name="SvgFileToXamlButton" Content="SvgFileToXaml" Click="SvgFileToXamlButton_Click" />
+            <Button x:Name="ImportImageFromSvgFileButton" Content="ImportImageFromSvgFile" Click="ImportImageFromSvgFileButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

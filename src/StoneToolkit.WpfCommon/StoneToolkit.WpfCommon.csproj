@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-windows;net472</TargetFrameworks>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoneToolkit.Common\StoneToolkit.Common.csproj" />
+  </ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net472'">
+		<Reference Include="PresentationFramework.Aero" />
+	</ItemGroup>
+
+	<!--解决PresentationFramework.Aero冲突问题，参考：https://stackoverflow.com/questions/72138621/same-type-name-exists-in-both-aero-and-aero2-->
+	<PropertyGroup>
+		<ReferenceWpfAeroTheme>true</ReferenceWpfAeroTheme>
+		<ReferenceWpfAero2Theme>false</ReferenceWpfAero2Theme>
+		<ReferenceWpfAeroLiteTheme>false</ReferenceWpfAeroLiteTheme>
+		<ReferenceWpfClassicTheme>false</ReferenceWpfClassicTheme>
+		<ReferenceWpfLunaTheme>false</ReferenceWpfLunaTheme>
+		<ReferenceWpfRoyaleTheme>false</ReferenceWpfRoyaleTheme>
+	</PropertyGroup>
+
+	<Target Name="SelectWpfThemeAssembly" AfterTargets="ResolveAssemblyReferences" Condition="'$(ReferenceWpfAeroTheme)' == 'true' Or '$(ReferenceWpfAero2Theme)' == 'true'    Or '$(ReferenceWpfAeroLiteTheme)' == 'true' Or '$(ReferenceWpfClassicTheme)' == 'true'  Or  '$(ReferenceWpfLunaTheme)' == 'true'     Or '$(ReferenceWpfRoyaleTheme)' == 'true'">
+		<ItemGroup>
+			<_WpfThemeAssemblies Include="@(ReferencePath)" Condition="'%(ReferencePath.NuGetPackageId)'=='Microsoft.WindowsDesktop.App.Ref' And '%(ReferencePath.FileName)'=='PresentationFramework.Aero'">
+				<Aliases Condition="'$(WpfAeroThemeAliases)'!=''">$(WpfAeroThemeAliases)</Aliases>
+			</_WpfThemeAssemblies>
+
+			<_WpfThemeAssemblies Include="@(ReferencePath)" Condition="'%(ReferencePath.NuGetPackageId)'=='Microsoft.WindowsDesktop.App.Ref' And '%(ReferencePath.FileName)'=='PresentationFramework.Aero2'">
+				<Aliases Condition="'$(WpfAero2ThemeAliases)'!=''">$(WpfAero2ThemeAliases)</Aliases>
+			</_WpfThemeAssemblies>
+
+			<_WpfThemeAssemblies Include="@(ReferencePath)" Condition="'%(ReferencePath.NuGetPackageId)'=='Microsoft.WindowsDesktop.App.Ref' And '%(ReferencePath.FileName)'=='PresentationFramework.AeroLite'">
+				<Aliases Condition="'$(WpfAeroLiteThemeAliases)'!=''">$(WpfAeroLiteThemeAliases)</Aliases>
+			</_WpfThemeAssemblies>
+
+			<_WpfThemeAssemblies Include="@(ReferencePath)" Condition="'%(ReferencePath.NuGetPackageId)'=='Microsoft.WindowsDesktop.App.Ref' And '%(ReferencePath.FileName)'=='PresentationFramework.Classic'">
+				<Aliases Condition="'$(WpfClassicThemeAliases)'!=''">$(WpfClassicThemeAliases)</Aliases>
+			</_WpfThemeAssemblies>
+
+			<_WpfThemeAssemblies Include="@(ReferencePath)" Condition="'%(ReferencePath.NuGetPackageId)'=='Microsoft.WindowsDesktop.App.Ref' And '%(ReferencePath.FileName)'=='PresentationFramework.Luna'">
+				<Aliases Condition="'$(WpfLunaThemeAliases)'!=''">$(WpfLunaThemeAliases)</Aliases>
+			</_WpfThemeAssemblies>
+
+
+			<_WpfThemeAssemblies Include="@(ReferencePath)" Condition="'%(ReferencePath.NuGetPackageId)'=='Microsoft.WindowsDesktop.App.Ref' And '%(ReferencePath.FileName)'=='PresentationFramework.Royale'">
+				<Aliases Condition="'$(WpfRoyaleThemeAliases)'!=''">$(WpfRoyaleThemeAliases)</Aliases>
+			</_WpfThemeAssemblies>
+
+			<ReferencePath Remove="@(_WpfThemeAssemblies)" />
+
+			<ReferencePath Include="@(_WpfThemeAssemblies)" Condition="('%(_WpfThemeAssemblies.FileName)'=='PresentationFramework.Aero' And '$(ReferenceWpfAeroTheme)'=='true')  Or ('%(_WpfThemeAssemblies.FileName)'=='PresentationFramework.Aero2' And '$(ReferenceWpfAero2Theme)'=='true')  Or ('%(_WpfThemeAssemblies.FileName)'=='PresentationFramework.AeroLite' And '$(ReferenceWpfAeroLiteTheme)'=='true')  Or  ('%(_WpfThemeAssemblies.FileName)'=='PresentationFramework.Classic' And '$(ReferenceWpfClassicTheme)'=='true') Or ('%(_WpfThemeAssemblies.FileName)'=='PresentationFramework.Luna' And '$(ReferenceWpfLunaTheme)'=='true') Or ('%(_WpfThemeAssemblies.FileName)'=='PresentationFramework.Royale' And '$(ReferenceWpfRoyaleTheme)'=='true')" />
+		</ItemGroup>
+	</Target>
+
+</Project>

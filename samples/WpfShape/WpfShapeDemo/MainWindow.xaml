@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfShapeDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfShapeDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Canvas Name="canvas1" />
+        <StackPanel Grid.Column="1" Margin="5" Focusable="False">
+            <Button x:Name="AddLine" Width="120" Click="AddLine_Click">AddLine</Button>
+            <Button x:Name="AddRectangle" Width="120" Click="AddRectangle_Click">Add Rectangle</Button>
+            <Button x:Name="AddRoundRectangle" Width="120" Click="AddRoundRectangle_Click">Add RoundRectangle</Button>
+            <Button x:Name="AddEllipse" Width="120" Click="AddEllipse_Click">Add Ellipse</Button>
+            <Button x:Name="AddPolyline" Width="120" Click="AddPolyline_Click">Add Polyline</Button>
+            <Button x:Name="AddPolygon" Width="120" Click="AddPolygon_Click">Add Polygon</Button>
+            <Button x:Name="AddCurve" Width="120" Click="AddCurve_Click">Add Curve</Button>
+            <Button x:Name="AddClosedCurve" Width="120" Click="AddClosedCurve_Click">Add ClosedCurve</Button>
+            <Button x:Name="AddArc" Width="120" Click="AddArc_Click">Add Arc</Button>
+            <Button x:Name="AddArch" Width="120" Click="AddArch_Click">Add Arch</Button>
+            <Button x:Name="AddPie" Width="120" Click="AddPie_Click">Add Pie</Button>
+            <Button x:Name="AddPipe" Width="120" Click="AddPipe_Click">Add Pipe</Button>
+            <Button x:Name="AddText" Width="120" Click="AddText_Click">Add Text</Button>
+        </StackPanel>
+    </Grid>
+</Window>

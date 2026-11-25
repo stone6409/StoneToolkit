@@ -1,0 +1,20 @@
+﻿<Window x:Class="WpfArcDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shape="clr-namespace:StoneToolkit.WpfShape.Shapes;assembly=StoneToolkit.WpfShape"
+        xmlns:local="clr-namespace:WpfArcDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <shape:WpfArc Width="200" Height="100" StartAngle="180" EndAngle="180" Stroke="Black" />
+        <shape:WpfArc Grid.Column="1" Width="200" Height="100" StartAngle="90" EndAngle="330" Stroke="Black" />
+        <shape:WpfArc Grid.Column="2" Width="200" Height="100" StartAngle="0" EndAngle="360" Stroke="Black" />
+    </Grid>
+</Window>

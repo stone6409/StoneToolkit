@@ -1,0 +1,32 @@
+﻿<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/StoneToolkit.Common/StoneToolkit.Common.csproj" />
+    <Project Path="src/StoneToolkit.Extension/StoneToolkit.Extension.csproj" />
+    <Project Path="src/StoneToolkit.OpenAi/StoneToolkit.OpenAi.csproj" />
+    <Project Path="src/StoneToolkit.Web/StoneToolkit.Web.csproj" />
+    <Project Path="src/StoneToolkit.WpfCommon/StoneToolkit.WpfCommon.csproj" />
+    <Project Path="src/StoneToolkit.WpfControl/StoneToolkit.WpfControl.csproj" />
+    <Project Path="src/StoneToolkit.WpfCustomControl/StoneToolkit.WpfCustomControl.csproj" />
+    <Project Path="src/StoneToolkit.WpfShape/StoneToolkit.WpfShape.csproj" />
+    <Project Path="src/StoneToolkit.WpfUserControl/StoneToolkit.WpfUserControl.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/MessengerDemo/MessengerDemo.csproj" />
+    <Project Path="samples/MessengerWpfDemo/MessengerWpfDemo.csproj" />
+    <Project Path="samples/SerilogDemo/SerilogDemo.csproj" />
+    <Project Path="samples/SplitLayoutDemo/SplitLayoutDemo.csproj" />
+    <Project Path="samples/SvgConverter/SvgConverter.csproj" Id="d1b291fe-a21b-4c27-930d-39cc2c963e13" />
+    <Project Path="samples/SvgToXamlDemo/SvgToXamlDemo.csproj" />
+    <Project Path="samples/SvgToXamlDemo2/SvgToXamlDemo2.csproj" />
+  </Folder>
+  <Folder Name="/samples/WpfShape/">
+    <Project Path="samples/WpfShape/CustomShape/CustomShape.csproj" />
+    <Project Path="samples/WpfShape/SimpleShape/SimpleShape.csproj" />
+    <Project Path="samples/WpfShape/WpfArcDemo/WpfArcDemo.csproj" />
+    <Project Path="samples/WpfShape/WpfFontExample/WpfFontExample.csproj" />
+    <Project Path="samples/WpfShape/WpfRulerExample/WpfRulerExample.csproj" />
+    <Project Path="samples/WpfShape/WpfShapeDemo/WpfShapeDemo.csproj" />
+    <Project Path="samples/WpfShape/WpfShapeDemo2/WpfShapeDemo2.csproj" />
+    <Project Path="samples/WpfShape/WpfTextExample/WpfTextExample.csproj" />
+  </Folder>
+</Solution>
