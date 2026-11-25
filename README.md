@@ -1,6 +1,6 @@
 ﻿# StoneToolkit
 
-WPF 与通用基础类库集合。原位于 `ScTrials` 仓库的 `src/StoneToolkit` 目录，现拆分为独立仓库。
+WPF 与通用基础类库集合。
 
 ## 项目结构
 
@@ -46,8 +46,3 @@ WpfShape  （独立）
 dotnet build StoneToolkit.slnx
 ```
 
-## 被其他仓库引用
-
-其他仓库（如 `ScTrials`）通过 `$(StoneToolkitRoot)` 属性 + `ProjectReference` 引用本仓库源码，
-以便在调试时可直接步入类库代码。使用方仓库需保证本仓库位于其同级目录，或设置环境变量
-`STONETOOLKIT_ROOT` 指向 `StoneToolkit\src`。
